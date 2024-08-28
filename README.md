@@ -18,6 +18,7 @@ To start the server, run the following command:
 
 ```bash
 node server.js
+```bash
 
 ### Running the Client
 
@@ -25,6 +26,7 @@ After starting the server, run the client to make requests:
 
 ```bash
 node client.js
+```bash
 
 ### Running the Script
 
@@ -32,3 +34,4 @@ To run the data processor, execute the following command:
 
 ```bash
 node data_processor.js
+```bash
