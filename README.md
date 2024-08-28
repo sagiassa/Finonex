@@ -2,15 +2,14 @@
 
 ## Overview
 
-This project involves running a server, client, and data processor. The client makes requests to the server, and the data processor handles all events data and upsert them to the postgresSQL DB.
+This project involves running a server, client, and data processor. The client makes requests to the server, and the data processor handles all events data that were saved locally and upsert them to the PostgreSQL DB.
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js installed on your machine.
-- A PostgreSQL database set up and configured.
-- Change the DB params in the server and data processor files. (pool initialization)
+- A PostgreSQL database set up and configured (both in server and data processot files).
   
 ### Running the Server
 
