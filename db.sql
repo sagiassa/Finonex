@@ -1,17 +1,17 @@
 CREATE TABLE users_revenue (
-    user_id CHAR(20) PRIMARY KEY,
+    user_id Varchar(30) PRIMARY KEY,
     revenue NUMERIC DEFAULT 0
 );
 
 
 /* a function that creates ot updates a user's revenue */ 
 CREATE OR REPLACE FUNCTION update_revenue(
-    p_user_id CHAR(20),
+    p_user_id Varchar(30),
     p_amount NUMERIC
 ) RETURNS VOID AS $$
 BEGIN
-    -- Check if the user exists
-    IF EXISTS (SELECT 1 FROM users_revenue WHERE user_id = p_user_id) THEN
+    -- Check if the user exists and locks the row
+    IF EXISTS (SELECT 1 FROM users_revenue WHERE user_id = p_user_id FOR UPDATE) THEN
         -- Update the revenue if the user exists
         UPDATE users_revenue
         SET revenue = revenue + p_amount
