@@ -6,6 +6,7 @@ const url = 'http://localhost:8000/liveEvent';
 const secret = 'secret';
 const filePath = './events.jsonl';
 const validActions = ['add_revenue', 'subtract_revenue']
+
 // Create a readline interface to read the file line by line
 const reader = readline.createInterface({
     input: fs.createReadStream(filePath),
@@ -13,8 +14,18 @@ const reader = readline.createInterface({
 });
 
 function validateEvent(event) {
-    if (typeof event.userId === 'string' && Number.isInteger(event.value)
+    if (typeof event.userId === 'string' && event.userId.trim() !== '' && Number.isInteger(event.value)
         && validActions.includes(event.name)) {
+        return true;
+    }
+    return false;
+}
+
+function sanitizationCheck(event) {
+    const sanitizedUserId = event.userId.replace(/[<>]/g, '');
+    const sanitizedEventName = event.name.replace(/[<>]/g, '');
+
+    if (sanitizedUserId === event.userId && sanitizedEventName === event.name) {
         return true;
     }
     return false;
@@ -24,7 +35,7 @@ reader.on('line', async (line) => {
     try {
         const event = JSON.parse(line);
 
-        if (validateEvent(event)) {
+        if (validateEvent(event) && sanitizationCheck(event)) {
             const response = await axios.post(url, event, {
                 headers: {
                     'Authorization': `Bearer ${secret}`,
