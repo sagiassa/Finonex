@@ -12,19 +12,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'node_modules')))
 app.use(bodyParser.json())
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-origin', '*');
-    next();
-})
-
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'postgres',
-    password: 'theassa1504', //TODO remove it 
+    password: '****', //TODO enter your own password
     port: 5432,
 });
-
 
 const csvFilePath = path.join(__dirname, 'events_data.csv');
 if (!fs.existsSync(csvFilePath)) {
@@ -42,7 +36,6 @@ function auth(req, res, next) {
     if (token !== SECRET) {
         return res.status(403).json({ error: 'Forbidden: Invalid secret' });
     }
-
     next()
 }
 
@@ -78,5 +71,10 @@ app.post('/liveEvent', auth, (req, res) => {
 })
 
 app.listen(PORT, function (err, res) {
-    console.log("the server runs on port " + PORT)
+    if (err) {
+        console.log('Server error', err);
+
+    } else {
+        console.log("the server runs on port " + PORT)
+    }
 })
