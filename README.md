@@ -4,6 +4,12 @@
 
 This project involves running a server, client, and data processor. The client makes requests to the server, and the data processor handles all events data that were saved locally and upsert them to the PostgreSQL DB.
 
+I added the creation of the DB table in the data processot script. 
+
+## DB.sql
+
+There is a function for updating the revenue of each user. I used the lock mechanism in order to prevent from two processes to run on the same user in parallel.
+
 ## Getting Started
 
 ### Prerequisites
